@@ -10,4 +10,15 @@ Content-Type: application/json
 }
 
 ### get a particular message 
-GET http://localhost:3000/messages/2000
+GET http://localhost:3000/messages/45
+
+
+###create user 
+POST http://localhost:3000/users/auth/sign-up
+Content-Type: application/json
+
+{
+    "email": "borhan@gmail.com",
+    "password": "2lwfjislfjs"
+}
+
