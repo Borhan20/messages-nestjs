@@ -2,32 +2,32 @@ import { Controller, Post, Get, Body, Param, Put, Delete } from '@nestjs/common'
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('auth/api/v1/users')
 export class UsersController {
     constructor(private usersService: UsersService) {}
 
-    @Post('/auth/sign-up')
+    @Post('/sign-up')
     async creatUser(@Body() body: CreateUserDto) {
         return this.usersService.create(body.email, body.password);
     }
 
-    @Get('/auth/all') // Specific route comes first
+    @Get('/all') // Specific route comes first
     async getUsers() {
         return this.usersService.getUsers();
     }
 
-    @Get('/auth/:id') // Generic route comes after
+    @Get('/:id') // Generic route comes after
     async getUser(@Param('id') id: number) {
         return this.usersService.getUser(id);
       
     }
 
-    @Put('/auth/:id')
+    @Put('/:id')
     async updateUsers(@Param('id') id: number, @Body() updateBody: CreateUserDto) {
         return this.usersService.updateUser(id, updateBody);
     }
 
-    @Delete('/auth/:id')
+    @Delete('/:id')
     async deleteUser(@Param('id') id: number){
         this.usersService.removeUser(id);
     }

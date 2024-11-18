@@ -23,13 +23,13 @@ Content-Type: application/json
 }
 
 ###get user 
-GET http://localhost:3000/users/auth/3
+GET http://localhost:3000/auth/api/v1/users/3
 
 ###get users 
-GET http://localhost:3000/users/auth/all
+GET http://localhost:3000/auth/api/v1/users/all
 
 ###get user 
-PUT http://localhost:3000/users/auth/3
+PUT http://localhost:3000/auth/api/v1/users/3
 Content-Type: application/json
 
 {
@@ -38,5 +38,5 @@ Content-Type: application/json
 }
 
 ###get user 
-DELETE  http://localhost:3000/users/auth/5
+DELETE  http://localhost:3000/auth/api/v1/users/5
 
