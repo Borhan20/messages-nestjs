@@ -37,3 +37,6 @@ Content-Type: application/json
     "password":"kjsdflkjslkjsfd"
 }
 
+###get user 
+DELETE  http://localhost:3000/users/auth/5
+

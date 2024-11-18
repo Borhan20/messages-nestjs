@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param, Put } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Put, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 
@@ -25,5 +25,10 @@ export class UsersController {
     @Put('/auth/:id')
     async updateUsers(@Param('id') id: number, @Body() updateBody: CreateUserDto) {
         return this.usersService.updateUser(id, updateBody);
+    }
+
+    @Delete('/auth/:id')
+    async deleteUser(@Param('id') id: number){
+        this.usersService.removeUser(id);
     }
 }
