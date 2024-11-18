@@ -18,7 +18,22 @@ POST http://localhost:3000/users/auth/sign-up
 Content-Type: application/json
 
 {
-    "email": "borhan@gmail.com",
+    "email": "borhan4@gmail.com",
     "password": "2lwfjislfjs"
+}
+
+###get user 
+GET http://localhost:3000/users/auth/3
+
+###get users 
+GET http://localhost:3000/users/auth/all
+
+###get user 
+PUT http://localhost:3000/users/auth/3
+Content-Type: application/json
+
+{
+    "email": "anam@gmail.com",
+    "password":"kjsdflkjslkjsfd"
 }
 
