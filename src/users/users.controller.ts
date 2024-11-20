@@ -1,17 +1,41 @@
-import { Controller, Post, Get, Body, Param, Put, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Put, Delete, UseInterceptors, ClassSerializerInterceptor, Session, ForbiddenException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { Serialize } from 'src/interceptors/serialize.interceptors';
 import { UserDto } from './dtos/user.dto';
+import { AuthService } from './auth.service';
 
 @Controller('auth/api/v1/users')
 @Serialize(UserDto)
 export class UsersController {
-    constructor(private usersService: UsersService) {}
+    constructor(
+        private usersService: UsersService,
+        private authService:AuthService
+    ) {}
+
+    @Get('/colors/:color')
+    async setColor(@Param('color') color: string, @Session() session: any){
+        session.color = color;
+    }
+
+    @Get('/colors')
+    async getColor(@Session() session: any){
+        return session.color;
+    }
 
     @Post('/sign-up')
-    async creatUser(@Body() body: CreateUserDto) {
-        return this.usersService.create(body.email, body.password);
+    async creatUser(@Body() body: CreateUserDto, @Session() session: any) {
+        const user = await this.authService.signup(body.email, body.password);
+        session.userId = user.id;
+        return user;
+    }
+
+
+    @Post('/sign-in')
+    async authenticateUser(@Body() body: CreateUserDto, @Session() session: any) {
+        const user =  await this.authService.signin(body.email, body.password);
+        session.userId = user.id;
+        return user;
     }
 
 
@@ -22,7 +46,10 @@ export class UsersController {
 
     
     @Get('/:id') // Generic route comes after
-    async getUser(@Param('id') id: number) {
+    async getUser(@Param('id') id: number, @Session() session: any) {
+        if(session.userId != id){
+            throw new ForbiddenException("you are forbidden for this request")
+        }
         return this.usersService.getUser(id);
       
     }

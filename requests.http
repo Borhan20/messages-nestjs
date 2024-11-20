@@ -18,12 +18,21 @@ POST http://localhost:3000/auth/api/v1/users/sign-up
 Content-Type: application/json
 
 {
-    "email": "borhan4@gmail.com",
+    "email": "borhan5@gmail.com",
+    "password": "2lwfjislfjs"
+}
+
+###authenticate user 
+POST http://localhost:3000/auth/api/v1/users/sign-in
+Content-Type: application/json
+
+{
+    "email": "borhan5@gmail.com",
     "password": "2lwfjislfjs"
 }
 
 ###get user 
-GET http://localhost:3000/auth/api/v1/users/2
+GET http://localhost:3000/auth/api/v1/users/8
 
 ###get users 
 GET http://localhost:3000/auth/api/v1/users/all
@@ -39,4 +48,11 @@ Content-Type: application/json
 
 ###get user 
 DELETE  http://localhost:3000/auth/api/v1/users/5
+
+
+### set a color 
+GET http://localhost:3000/auth/api/v1/users/colors/red
+
+### get a color 
+GET http://localhost:3000/auth/api/v1/users/colors
 
