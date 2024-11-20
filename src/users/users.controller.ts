@@ -1,8 +1,11 @@
-import { Controller, Post, Get, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Put, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
+import { Serialize } from 'src/interceptors/serialize.interceptors';
+import { UserDto } from './dtos/user.dto';
 
 @Controller('auth/api/v1/users')
+@Serialize(UserDto)
 export class UsersController {
     constructor(private usersService: UsersService) {}
 
@@ -11,11 +14,13 @@ export class UsersController {
         return this.usersService.create(body.email, body.password);
     }
 
+
     @Get('/all') // Specific route comes first
     async getUsers() {
         return this.usersService.getUsers();
     }
 
+    
     @Get('/:id') // Generic route comes after
     async getUser(@Param('id') id: number) {
         return this.usersService.getUser(id);

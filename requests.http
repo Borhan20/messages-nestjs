@@ -14,7 +14,7 @@ GET http://localhost:3000/messages/45
 
 
 ###create user 
-POST http://localhost:3000/users/auth/sign-up
+POST http://localhost:3000/auth/api/v1/users/sign-up
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ###get user 
-GET http://localhost:3000/auth/api/v1/users/3
+GET http://localhost:3000/auth/api/v1/users/2
 
 ###get users 
 GET http://localhost:3000/auth/api/v1/users/all
