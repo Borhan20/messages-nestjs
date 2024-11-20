@@ -7,11 +7,16 @@ import { CreateUserDto } from './dtos/create-user.dto';
 @Injectable()
 export class UsersService {
 
+    async find(email: string) {
+        return await this.repo.findOne({where:{email}})
+    }
+
     constructor(@InjectRepository(User) private repo: Repository<User>){
        
     }
 
     async create(email: string, password: string){
+        console.log(password)
         const user = this.repo.create({email, password});
         return await this.repo.save(user);
     }
