@@ -4,33 +4,30 @@ import { Controller,
      Body, 
      Param, 
      Put, 
-     Delete, 
-     UseInterceptors, 
-     ClassSerializerInterceptor, 
-     Session, 
-     ForbiddenException, 
-     UnauthorizedException 
+     Delete,  
+     Session,  
+     UnauthorizedException ,
+     UseGuards
     } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
-import { UsersService } from '../service/users.service';
 import { Serialize } from 'src/interceptors/serialize.interceptors';
 import { UserDto } from '../dtos/user.dto';
-import { AuthService } from '../service/auth.service';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { User } from '../entity/user.entity';
-import { CurrentUserInterceptor } from '../interceptors/current-user.interceptors'; 
 import { UsersServiceImpl } from '../service/impl/user.service.impl';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthServiceImpl } from '../service/impl/auth.service.impl';
 
 @Controller('auth/api/v1/users')
 @Serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
     constructor(
         private usersService: UsersServiceImpl,
-        private authService:AuthService
+        private authService:AuthServiceImpl
     ) {}
 
     @Get('/whoami')
+    @UseGuards(AuthGuard)
     async whoAmI(@CurrentUser() user: User ){
        return  user;
     }
