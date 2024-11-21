@@ -3,12 +3,13 @@ import { BadRequestException, Injectable, NotFoundException, UnauthorizedExcepti
 import { UsersService } from "./users.service";
 import { randomBytes, scrypt as _script } from "crypto";
 import { promisify } from "util";
+import { UsersServiceImpl } from "./impl/user.service.impl";
 
 const scrypt = promisify(_script)
 
 @Injectable()
 export class AuthService {
-    constructor(private usersService: UsersService){}
+    constructor(private usersService: UsersServiceImpl){}
 
     async signup(email:string, password: string){
 

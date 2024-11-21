@@ -31,8 +31,14 @@ Content-Type: application/json
     "password": "2lwfjislfjs"
 }
 
+###sign out user
+POST http://localhost:3000/auth/api/v1/users/sign-out
+
+###who am i
+GET http://localhost:3000/auth/api/v1/users/whoami
+
 ###get user 
-GET http://localhost:3000/auth/api/v1/users/8
+GET http://localhost:3000/auth/api/v1/users/7
 
 ###get users 
 GET http://localhost:3000/auth/api/v1/users/all
