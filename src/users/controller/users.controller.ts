@@ -1,17 +1,39 @@
-import { Controller, Post, Get, Body, Param, Put, Delete, UseInterceptors, ClassSerializerInterceptor, Session, ForbiddenException } from '@nestjs/common';
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UsersService } from './users.service';
+import { Controller,
+     Post, 
+     Get, 
+     Body, 
+     Param, 
+     Put, 
+     Delete, 
+     UseInterceptors, 
+     ClassSerializerInterceptor, 
+     Session, 
+     ForbiddenException, 
+     UnauthorizedException 
+    } from '@nestjs/common';
+import { CreateUserDto } from '../dtos/create-user.dto';
+import { UsersService } from '../service/users.service';
 import { Serialize } from 'src/interceptors/serialize.interceptors';
-import { UserDto } from './dtos/user.dto';
-import { AuthService } from './auth.service';
+import { UserDto } from '../dtos/user.dto';
+import { AuthService } from '../service/auth.service';
+import { CurrentUser } from '../decorators/current-user.decorator';
+import { User } from '../entity/user.entity';
+import { CurrentUserInterceptor } from '../interceptors/current-user.interceptors'; 
+import { UsersServiceImpl } from '../service/impl/user.service.impl';
 
 @Controller('auth/api/v1/users')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
     constructor(
-        private usersService: UsersService,
+        private usersService: UsersServiceImpl,
         private authService:AuthService
     ) {}
+
+    @Get('/whoami')
+    async whoAmI(@CurrentUser() user: User ){
+       return  user;
+    }
 
     @Get('/colors/:color')
     async setColor(@Param('color') color: string, @Session() session: any){
@@ -38,6 +60,11 @@ export class UsersController {
         return user;
     }
 
+    @Post('/sign-out')
+    async signOut(@Session() session: any){
+        session.userId = null;
+    }
+
 
     @Get('/all') // Specific route comes first
     async getUsers() {
@@ -48,7 +75,7 @@ export class UsersController {
     @Get('/:id') // Generic route comes after
     async getUser(@Param('id') id: number, @Session() session: any) {
         if(session.userId != id){
-            throw new ForbiddenException("you are forbidden for this request")
+            throw new UnauthorizedException("you are not authorized")
         }
         return this.usersService.getUser(id);
       

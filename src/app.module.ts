@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.entity';
+import { User } from './users/entity/user.entity';
 import { Message } from './messages/messages.entity';
 
 @Module({
