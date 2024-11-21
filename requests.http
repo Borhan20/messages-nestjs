@@ -43,7 +43,7 @@ GET http://localhost:3000/auth/api/v1/users/7
 ###get users 
 GET http://localhost:3000/auth/api/v1/users/all
 
-###get user 
+###update user 
 PUT http://localhost:3000/auth/api/v1/users/3
 Content-Type: application/json
 
