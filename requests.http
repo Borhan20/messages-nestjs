@@ -1,8 +1,8 @@
 ### list all messages 
-GET http://localhost:3000/messages
+GET http://localhost:3000/api/private/v1/friends/1/messages
 
 ### create a new messages
-POST http://localhost:3000/messages
+POST http://localhost:3000/api/private/v1/friends/2/messages
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### get a particular message 
-GET http://localhost:3000/messages/45
+GET http://localhost:3000/api/private/v1/friends/1/messages/1
 
 
 ###create user 
@@ -18,8 +18,8 @@ POST http://localhost:3000/auth/api/v1/users/sign-up
 Content-Type: application/json
 
 {
-    "email": "borhan5@gmail.com",
-    "password": "2lwfjislfjs"
+    "email": "uddin@gmail.com",
+    "password": "123456"
 }
 
 ###authenticate user 
@@ -27,8 +27,8 @@ POST http://localhost:3000/auth/api/v1/users/sign-in
 Content-Type: application/json
 
 {
-    "email": "borhan5@gmail.com",
-    "password": "2lwfjislfjs"
+    "email": "uddin@gmail.com",
+    "password": "123456"
 }
 
 ###sign out user
@@ -38,7 +38,7 @@ POST http://localhost:3000/auth/api/v1/users/sign-out
 GET http://localhost:3000/auth/api/v1/users/whoami
 
 ###get user 
-GET http://localhost:3000/auth/api/v1/users/7
+GET http://localhost:3000/auth/api/v1/users/3
 
 ###get users 
 GET http://localhost:3000/auth/api/v1/users/all

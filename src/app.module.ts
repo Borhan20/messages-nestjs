@@ -5,7 +5,7 @@ import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entity/user.entity';
-import { Message } from './messages/messages.entity';
+import { Message } from './messages/entity/messages.entity';
 
 @Module({
   providers: [AppService],
