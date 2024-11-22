@@ -17,9 +17,10 @@ import { User } from '../entity/user.entity';
 import { UsersServiceImpl } from '../service/impl/user.service.impl';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { AuthServiceImpl } from '../service/impl/auth.service.impl';
+import { UserListDto } from '../dtos/user-list.dto';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('auth/api/v1/users')
-@Serialize(UserDto)
 export class UsersController {
     constructor(
         private usersService: UsersServiceImpl,
@@ -28,21 +29,16 @@ export class UsersController {
 
     @Get('/whoami')
     @UseGuards(AuthGuard)
+    @ApiOkResponse({ type: UserDto })
+    @Serialize(UserDto)
     async whoAmI(@CurrentUser() user: User ){
        return  user;
     }
 
-    @Get('/colors/:color')
-    async setColor(@Param('color') color: string, @Session() session: any){
-        session.color = color;
-    }
-
-    @Get('/colors')
-    async getColor(@Session() session: any){
-        return session.color;
-    }
 
     @Post('/sign-up')
+    @ApiOkResponse({ type: UserDto })
+    @Serialize(UserDto)
     async creatUser(@Body() body: CreateUserDto, @Session() session: any) {
         const user = await this.authService.signup(body.email, body.password);
         session.userId = user.id;
@@ -51,6 +47,8 @@ export class UsersController {
 
 
     @Post('/sign-in')
+    @ApiOkResponse({ type: UserDto })
+    @Serialize(UserDto)
     async authenticateUser(@Body() body: CreateUserDto, @Session() session: any) {
         const user =  await this.authService.signin(body.email, body.password);
         session.userId = user.id;
@@ -63,13 +61,19 @@ export class UsersController {
     }
 
 
-    @Get('/all') // Specific route comes first
+    @Get('/all')
+    @ApiOkResponse({ type: UserListDto })
+    @UseGuards(AuthGuard) 
+    @Serialize(UserListDto)// Specific route comes first
     async getUsers() {
         return this.usersService.getUsers();
     }
 
     
-    @Get('/:id') // Generic route comes after
+    @Get('/:id') 
+    @ApiOkResponse({ type: UserDto })
+    @UseGuards(AuthGuard)
+    @Serialize(UserDto)// Generic route comes after
     async getUser(@Param('id') id: number, @Session() session: any) {
         if(session.userId != id){
             throw new UnauthorizedException("you are not authorized")
@@ -79,11 +83,16 @@ export class UsersController {
     }
 
     @Put('/:id')
+    @ApiOkResponse({ type: UserDto })
+    @UseGuards(AuthGuard)
+    @Serialize(UserDto)
     async updateUsers(@Param('id') id: number, @Body() updateBody: CreateUserDto) {
         return this.usersService.updateUser(id, updateBody);
     }
 
     @Delete('/:id')
+    @UseGuards(AuthGuard)
+    @ApiOkResponse({ type: UserListDto })
     async deleteUser(@Param('id') id: number){
         this.usersService.removeUser(id);
     }

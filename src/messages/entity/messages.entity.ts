@@ -8,4 +8,10 @@ export class Message{
 
     @Column()
     content: string;
+
+    @Column()
+    user: number
+
+    @Column()
+    friend: number
 }

@@ -6,11 +6,13 @@ import { User } from './entity/user.entity';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptors';
 import { UsersServiceImpl } from './service/impl/user.service.impl'; 
 import { AuthServiceImpl } from './service/impl/auth.service.impl';
+import { UserRepository } from './repository/user.repository';
 
 @Module({
   imports:[TypeOrmModule.forFeature([User])],
   providers: [
-    UsersServiceImpl, 
+    UsersServiceImpl,
+    UserRepository, 
     AuthServiceImpl, 
     {
       provide: APP_INTERCEPTOR,

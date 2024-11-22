@@ -26,6 +26,7 @@ export class SerializeInterceptor implements NestInterceptor{
        console.log("I'm running before the handler: ", context)
        return next.handle().pipe(
             map((data: any) => {
+            
                 //Run something before the response is sent
                 return plainToClass(this.dto, data, {
                     excludeExtraneousValues: true

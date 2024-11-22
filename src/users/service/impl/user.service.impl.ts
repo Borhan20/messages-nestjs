@@ -4,12 +4,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../entity/user.entity'
 import { UserRepository } from '../../repository/user.repository'; 
 import { UsersService } from '../users.service'; 
+import { UserDto } from 'src/users/dtos/user.dto';
 
 @Injectable()
 export class UsersServiceImpl implements UsersService {
 
     async find(email: string) {
-        return await this.repo.findOne({where:{email}})
+        const user  =  await this.repo.findOne({where:{email}})
+        return Object.assign(new UserDto(), user)
     }
 
     constructor(@InjectRepository(User) private repo: UserRepository){
@@ -28,7 +30,8 @@ export class UsersServiceImpl implements UsersService {
     }
 
     async getUsers(){
-        return await this.repo.find();
+        const users =  await this.repo.find();
+        return {users: users}
     }
     async updateUser(id: number, attrs: Partial<User>){
         const user = await this.repo.findOne({where:{id}, cache:false});
