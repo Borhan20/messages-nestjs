@@ -5,19 +5,17 @@ import { MessagesRepository } from "src/messages/repository/messages.repository"
 import { UserDto } from "src/users/dtos/user.dto";
 import { MessagesService } from "../messages.service";
 import { Message } from "src/messages/entity/messages.entity";
-import { InjectRepository } from "@nestjs/typeorm";
-import { MESSAGES } from "@nestjs/core/constants";
 
 
 
 @Injectable()
 export class MessagesServiceImpl implements MessagesService{
     
-   constructor(@InjectRepository(Message) private messagesRepo: MessagesRepository){}
+   constructor(private messagesRepo: MessagesRepository){}
 
     async findOne(id: number, user:UserDto, freindId:number){
         const message = await this.messagesRepo.findOne({where:{id}});
-        console.log(message)
+        // console.log(message)
         if (!message){
             throw new NotFoundException('message not found');
         }
@@ -27,37 +25,23 @@ export class MessagesServiceImpl implements MessagesService{
 
     async findAll(friendId:number, user:UserDto){
 
-        const messages =   await this.messagesRepo.find({ where:{
-            user : user.id,
-             friend: friendId,
-        }
-    });
-       
+        const messages_rep = await this.messagesRepo.findByUserFriend(user.id,friendId)
+  
         return {
-            messages: messages
+            messages: messages_rep
         }
-        //   const messages = await this.messagesRepo
-        //     .createQueryBuilder('message')
-        //     .where('message.user = :user', { user: user.id })
-        //     .andWhere('message.friend = :friendId', { friendId })
-        //     .getMany();
-
-        // const messages = await this.messagesRepo.query(
-        //     'SELECT * FROM messages WHERE user = ? AND friend = ?',
-        //     [user.id, friendId] // Positional parameters
-        //   );
-          
+         
 
     }
 
     async create(friendId:number, body:CreateMessageDto, user:UserDto){
-        console.log({body, friendId: Number(friendId), user})
+        // console.log({body, friendId: Number(friendId), user})
         const message = this.messagesRepo.create({
             content: body.content, 
             user: user.id, 
             friend:Number(friendId)
         });
-        console.log(message)
+        // console.log(message)
         return await this.messagesRepo.save(message)
     }
 

@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/private/v1/friends/1/messages
 
 ### create a new messages
-POST http://localhost:3000/api/private/v1/friends/2/messages
+POST http://localhost:3000/api/private/v1/friends/1/messages
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### get a particular message 
-GET http://localhost:3000/api/private/v1/friends/1/messages/1
+GET http://localhost:3000/api/private/v1/friends/3/messages/5
 
 
 ###create user 

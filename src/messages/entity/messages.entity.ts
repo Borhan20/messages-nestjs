@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Timestamp } from "typeorm";
 
 @Entity()
 export class Message{
@@ -14,4 +14,8 @@ export class Message{
 
     @Column()
     friend: number
+
+    @Column({ type: 'datetime', default: () => "datetime('now')" })
+    createdAt: Date
+
 }

@@ -11,5 +11,12 @@ export class MessageDto{
     @ApiProperty()
     content: string;
 
+    @Expose()
+    @ApiProperty()
+    user: number
+
+    @Expose()
+    @ApiProperty()
+    friend: number
 
 }
