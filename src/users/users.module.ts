@@ -12,11 +12,11 @@ import { TypeOrmExModule } from 'src/database/typeorm-ex.module';
 @Module({
   imports:[
     TypeOrmModule.forFeature([User]),
-    // TypeOrmExModule.forCustomRepository([UserRepository])
+    TypeOrmExModule.forCustomRepository([UserRepository])
   ],
   providers: [
     UsersServiceImpl,
-    UserRepository, 
+    // UserRepository,
     AuthServiceImpl, 
     {
       provide: APP_INTERCEPTOR,

@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+
 const cookieSession = require('cookie-session');
 
 async function bootstrap() {

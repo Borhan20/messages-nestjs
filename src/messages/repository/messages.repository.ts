@@ -4,12 +4,12 @@ import { Message } from '../entity/messages.entity';
 import { CustomRepository } from '../../database/typeorm-ex.decorators';
 
 @Injectable()
-// @CustomRepository(Message)
+@CustomRepository(Message)
 export class MessagesRepository extends Repository<Message> {
     
-    constructor(private dataSource: DataSource) {
-        super(Message, dataSource.createEntityManager());
-      } 
+    // constructor(private dataSource: DataSource) {
+    //     super(Message, dataSource.createEntityManager());
+    //   }
       
     async findByUserFriend(user: number, friend: number) {
         const messages = await this.find({

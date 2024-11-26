@@ -61,7 +61,7 @@ export class UsersController {
 
   @Get('/all')
   @ApiOkResponse({ type: UserListDto })
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Serialize(UserListDto) // Specific route comes first
   async getUsers() {
     return this.usersService.getUsers();

@@ -22,10 +22,10 @@ import { Injectable } from "@nestjs/common";
 import { CustomRepository } from "src/database/typeorm-ex.decorators";
 
 @Injectable()
-// @CustomRepository(User)
+@CustomRepository(User)
 export class UserRepository extends Repository<User>{
-    constructor(private dataSource: DataSource) {
-        super(User, dataSource.createEntityManager());
-      }
+    // constructor(private dataSource: DataSource) {
+    //     super(User, dataSource.createEntityManager());
+    //   }
 
 }

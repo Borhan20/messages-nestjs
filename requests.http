@@ -27,7 +27,7 @@ POST http://localhost:3000/auth/api/v1/users/sign-in
 Content-Type: application/json
 
 {
-    "email": "uddin@gmail.com",
+    "email": "anam@gmail.com",
     "password": "123456"
 }
 
