@@ -6,16 +6,16 @@ export class Message{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'varchar', length: 255 })
     content: string;
 
-    @Column()
+    @Column({ type: 'int'})
     user: number
 
-    @Column()
+    @Column({ type: 'int' })
     friend: number
 
-    @Column({ type: 'datetime', default: () => "datetime('now')" })
-    createdAt: Date
+    @Column({type: 'timestamp', default: () => "CURRENT_TIMESTAMP",})
+    createdAt: Timestamp
 
 }
