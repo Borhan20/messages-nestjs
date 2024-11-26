@@ -7,9 +7,13 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptors
 import { UsersServiceImpl } from './service/impl/user.service.impl'; 
 import { AuthServiceImpl } from './service/impl/auth.service.impl';
 import { UserRepository } from './repository/user.repository';
+import { TypeOrmExModule } from 'src/database/typeorm-ex.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User])],
+  imports:[
+    TypeOrmModule.forFeature([User]),
+    // TypeOrmExModule.forCustomRepository([UserRepository])
+  ],
   providers: [
     UsersServiceImpl,
     UserRepository, 

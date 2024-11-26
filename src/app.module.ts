@@ -12,10 +12,16 @@ import { Message } from './messages/entity/messages.entity';
   controllers: [AppController],
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sqlite',
+      // type: 'sqlite',
+      // database: 'db.sqlite',
+      type: 'postgres',
+      database: 'postgres',
+      port: 5432,
+      password: 'postgres',
+      username: 'postgres',
       entities: [User, Message],
-      synchronize: true
+      synchronize: true,
+      logging: true
     }),
     UsersModule,
     MessagesModule
